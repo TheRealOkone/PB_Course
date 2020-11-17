@@ -1,4 +1,4 @@
-package service;
+package serv.service;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package service;
+package serv.service;
 
 public class Book {
 	String caption;

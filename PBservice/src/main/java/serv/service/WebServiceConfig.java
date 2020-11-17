@@ -1,4 +1,4 @@
-package service;
+package serv.service;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
