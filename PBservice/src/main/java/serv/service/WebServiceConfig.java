@@ -14,20 +14,20 @@ import javax.xml.ws.Endpoint;
 public class WebServiceConfig {
     @Autowired
     private Bus bus;
-    
+
     @Autowired
-    private petLife life;
+    private PBMain basetalker;
     
     @Bean
     public ServletRegistrationBean<CXFServlet> wsDispatcherServlet() {
         CXFServlet cxfServlet = new CXFServlet();
-        return new ServletRegistrationBean<CXFServlet>(cxfServlet, "/ws/*");
+        return new ServletRegistrationBean<CXFServlet>(cxfServlet, "/PB/*");
     }
  
     @Bean
     public Endpoint endpoint() {
-        EndpointImpl endpoint = new EndpointImpl(bus, new myPetSOAPService(life));
-        endpoint.publish("/MyKitty");
+        EndpointImpl endpoint = new EndpointImpl(bus, new PBSOAPService(basetalker));
+        endpoint.publish("/PBService");
         return endpoint;
     }
 }
