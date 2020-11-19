@@ -1,11 +1,53 @@
 package serv.dbase;
 
-public class DataBase {
-    public void insertPixel(byte color,int pos){
+import java.io.Closeable;
+import java.sql.*;
+
+public class DataBase implements Closeable {
+    private static final String DB_URL = "jdbc:mysql://localhost:3306";
+    private static final String user = "root";
+    private static final String password = "123456";
+    private static boolean isBase;
+    private Connection connection;
+
+    public static DataBase createConnection() throws SQLException {
+        if (!isBase) {
+            //Проверяем наличие JDBC драйвера для работы с БД
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Попытка установить соединение с базой данных
+            Connection connection = DriverManager.getConnection(DB_URL, user, password);
+            System.out.println("Соединение с БД выполнено.");
+            isBase = true;
+            return new DataBase(connection);
+        }
+        return null;
+    }
+
+    private DataBase() {
 
     }
-    public byte[] getPixelMap(){
+
+    private DataBase(Connection connection) {
+        this.connection = connection;
+    }
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+            isBase = false;
+            System.out.println("Соединение успешно закрыто");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public byte[] getPixelMap() {
 
         return null;
+    }
+
+    public void insertPixel(byte color, int pos) {
+
     }
 }
