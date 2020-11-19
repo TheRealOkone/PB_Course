@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,7 +21,11 @@ public class PBMain {
     private byte[] picture;
 
     public PBMain() {
-        base = new DataBase();
+        try {
+            base.createConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         actions = new LinkedList<String>();
 
         Thread toBase = new Thread(new Runnable() {
@@ -32,7 +37,10 @@ public class PBMain {
                             base.insertPixel((new String(words[0]).getBytes("UTF-8"))[0], Integer.parseInt(words[1]));
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
+                        }  catch (SQLException e) {
+                            e.printStackTrace();
                         }
+
                     }
                     try {
                         Thread.sleep(1000);
@@ -46,7 +54,11 @@ public class PBMain {
         Thread update = new Thread(new Runnable() {
             public void run() {
                 while (true) {
-                    picture = base.getPixelMap();
+                    try {
+                        picture = base.getPixelMap();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -73,6 +85,11 @@ public class PBMain {
 
     public byte[] updatePicture() {
         return picture;
+    }
+
+    @Override
+    protected void finalize(){
+        base.close();
     }
 
 }
