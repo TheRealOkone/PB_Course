@@ -60,7 +60,7 @@ public class PBMain {
                         e.printStackTrace();
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -68,7 +68,6 @@ public class PBMain {
 
             }
         });
-        System.out.println("bruh");
         toBase.start();
         update.start();
     }
@@ -83,8 +82,15 @@ public class PBMain {
         }
     }
 
-    public byte[] updatePicture() {
-        return picture;
+    public byte[] updatePicture(){
+        byte[] x;
+        try {
+            x = base.getPixelMap();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            x = picture;
+        }
+        return x;
     }
 
     @Override
