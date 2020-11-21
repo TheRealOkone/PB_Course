@@ -38,9 +38,10 @@ public class PBMain {
                     String[] words = actions.take().split(" ");
                     base.insertPixel(words[0].getBytes(StandardCharsets.UTF_8)[0], Integer.parseInt(words[1]));
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                     return;
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -56,6 +57,7 @@ public class PBMain {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    return;
                 }
             }
 
@@ -91,4 +93,3 @@ public class PBMain {
     }
 
 }
-
