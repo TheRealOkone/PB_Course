@@ -21,7 +21,7 @@ public class DataBase implements Closeable {
             ResultSet rs = st.executeQuery("select color from colors");
             if (!rs.next()) {
                 System.out.println("База данных пуста, первичное заполнение");
-                for (int i = 0; i < 5000; i++) {
+                for (int i = 0; i < 160000; i++) {
                     System.out.println("id: " + i);
                     st.executeUpdate("INSERT INTO colors (color) \n" + " VALUES (0);");
                 }
@@ -48,7 +48,7 @@ public class DataBase implements Closeable {
     }
 
     public byte[] getPixelMap() throws SQLException {
-        byte[] result = new byte[5000];
+        byte[] result = new byte[160000];
         ResultSet rs = connection.createStatement().executeQuery("select color from colors");
         int i = 0;
         for (; rs.next(); i++) {
@@ -59,6 +59,6 @@ public class DataBase implements Closeable {
     }
 
     public void insertPixel(byte color, int pos) throws SQLException {
-
+        connection.createStatement().executeUpdate("UPDATE colors SET color=" + color +" WHERE id=" + (pos + 1) + ";");
     }
 }
