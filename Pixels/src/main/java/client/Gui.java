@@ -184,17 +184,17 @@ public class Gui extends JFrame {
                 if(bg.getSelection() != null) {
                     sub.setText("submit");
                     if(btnRed.isSelected())
-                        client.client.insert('1' + ' ' + String.valueOf((lastY) * 400 + lastX));
+                        client.client.insert("1 " + String.valueOf((lastY) * 400 + lastX));
                     if(btnGreen.isSelected())
-                        client.client.insert('2' + ' ' + String.valueOf((lastY) * 400 + lastX));
+                        client.client.insert("2 " + String.valueOf((lastY) * 400 + lastX));
                     if(btnBlack.isSelected())
-                        client.client.insert('3' + ' ' + String.valueOf((lastY) * 400 + lastX));
+                        client.client.insert("3 " + String.valueOf((lastY) * 400 + lastX));
                     if(btnYellow.isSelected())
-                        client.client.insert('4' + ' ' + String.valueOf((lastY) * 400 + lastX));
+                        client.client.insert("4 " + String.valueOf((lastY) * 400 + lastX));
                     if(btnBlue.isSelected())
-                        client.client.insert('5' + ' ' + String.valueOf((lastY) * 400 + lastX));
+                        client.client.insert("5 " + String.valueOf((lastY) * 400 + lastX));
                     if (btnWhite.isSelected())
-                        client.client.insert('6' + ' ' + String.valueOf((lastY) * 400 + lastX));
+                        client.client.insert("6 " + String.valueOf((lastY) * 400 + lastX));
                     area.addMouseMotionListener(ms);
                     area.repaint();
                     panel_cursor_zoom.repaint();
