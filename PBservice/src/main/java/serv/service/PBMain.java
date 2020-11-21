@@ -1,21 +1,10 @@
 package serv.service;
-
 import serv.dbase.DataBase;
-
 import org.springframework.stereotype.Service;
-
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @XmlRootElement(name = "Serv")
@@ -56,7 +45,6 @@ public class PBMain {
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
                     return;
                 }
             }
