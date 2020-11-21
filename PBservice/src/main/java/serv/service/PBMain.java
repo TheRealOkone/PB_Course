@@ -87,9 +87,5 @@ public class PBMain {
         return x;
     }
 
-    @Override
-    protected void finalize(){
-        base.close();
-    }
 
 }
