@@ -29,7 +29,7 @@ public class client {
     public static PBSOAPService client;
 
     public static void main(String[] args) {
-        Thread potok = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -46,7 +46,7 @@ public class client {
                     }
                 }
             }
-        });
+        }).start();
     }
 }
 
