@@ -21,7 +21,8 @@ public class TestPaint extends JPanel {
 
             int x = (i % 400) + getWidth() / 2 - 200;
             int y = (int) (i / 400) + getHeight() / 2 - 200;
-            switch ((char)pix[i]) {
+            char t = (char) (pix[i]);
+            switch (t) {
                 case '1' -> {
                     g2.setColor(new Color(254, 37, 0));
                     g2.fillRect(x, y, 1, 1);
