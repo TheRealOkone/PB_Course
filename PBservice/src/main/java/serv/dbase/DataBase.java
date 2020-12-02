@@ -10,6 +10,11 @@ public class DataBase implements Closeable {
     private static boolean isBase;
     private final Connection connection;
 
+    /**
+     *
+     * @return Создает соединение с БД
+     * @throws SQLException Бросает исключение, если не получилось
+     */
     public static DataBase createConnection() throws SQLException {
         if (!isBase) {
             //Проверяем наличие JDBC драйвера для работы с БД
@@ -32,10 +37,17 @@ public class DataBase implements Closeable {
         return null;
     }
 
+    /**
+     *
+     * @param connection Получение соединения
+     */
     private DataBase(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Закрытие соединения
+     */
     @Override
     public void close() {
         try {
@@ -47,6 +59,11 @@ public class DataBase implements Closeable {
         }
     }
 
+    /**
+     *
+     * @return Возврат обновленного изображения
+     * @throws SQLException Бросает исключение, если нет подключения
+     */
     public byte[] getPixelMap() throws SQLException {
         byte[] result = new byte[160000];
         ResultSet rs = connection.createStatement().executeQuery("select color from colors");
@@ -58,6 +75,12 @@ public class DataBase implements Closeable {
         return result;
     }
 
+    /**
+     *
+     * @param color Цвет пикселя
+     * @param pos Позиция пикселя
+     * @throws SQLException Бросает исключение, если нет подключения
+     */
     public void insertPixel(byte color, int pos) throws SQLException {
         connection.createStatement().executeUpdate("UPDATE colors SET color=" + color +" WHERE id=" + (pos + 1) + ";");
     }
