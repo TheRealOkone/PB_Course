@@ -7,6 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 
+/**
+ * Класс Gui создает графический интерфейс и выводит его на экран
+ */
+
 public class Gui extends JFrame {
     public TestPaint area;
     private  JPanel panel_cursor_zoom;
@@ -27,11 +31,19 @@ public class Gui extends JFrame {
     private int lastX;
     private int lastY;
 
+    /**
+     *
+     * @return возвращает картинку
+     */
 
     private BufferedImage getImage() {
         return image;
     }
 
+
+    /**
+     * Конструктор класса Gui() создает окно со стилями
+     */
     public Gui() {
 
         super();
@@ -98,12 +110,13 @@ public class Gui extends JFrame {
 
 
         panel_cursor_zoom = new JPanel() {
-            /**
-             *
-             */
+
             private static final long serialVersionUID = 1L;
 
             @Override
+
+
+
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
@@ -179,6 +192,7 @@ public class Gui extends JFrame {
 
         sub.addMouseListener(new MouseAdapter() {
             @Override
+
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if(bg.getSelection() != null) {
