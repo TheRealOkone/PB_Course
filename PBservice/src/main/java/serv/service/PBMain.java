@@ -14,6 +14,9 @@ public class PBMain {
     private final BlockingQueue<String> actions = new LinkedBlockingQueue<>();
     private byte[] picture;
 
+    /**
+     *  Создание потоков работы на сервере
+     */
     public PBMain() {
         try {
             base = DataBase.createConnection();
@@ -54,6 +57,11 @@ public class PBMain {
         update.start();
     }
 
+    /**
+     *
+     * @param order Команда, содержащая информацию о пикселе
+     * @return Признак успеха
+     */
     public boolean insert(String order) {
         try{
             actions.offer(order);
@@ -64,6 +72,10 @@ public class PBMain {
         }
     }
 
+    /**
+     *
+     * @return Обновление изображения
+     */
     public byte[] updatePicture(){
         byte[] x;
         try {
