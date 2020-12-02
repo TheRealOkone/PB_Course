@@ -17,13 +17,21 @@ public class WebServiceConfig {
 
     @Autowired
     private PBMain basetalker;
-    
+
+    /**
+     *
+     * @return Создание cxfServlet на localhost
+     */
     @Bean
     public ServletRegistrationBean<CXFServlet> wsDispatcherServlet() {
         CXFServlet cxfServlet = new CXFServlet();
         return new ServletRegistrationBean<CXFServlet>(cxfServlet, "/PB/*");
     }
- 
+
+    /**
+     *
+     * @return Развертывание микросервиса по пути localhost/PB/PBService
+     */
     @Bean
     public Endpoint endpoint() {
         EndpointImpl endpoint = new EndpointImpl(bus, new PBSOAPService(basetalker));
