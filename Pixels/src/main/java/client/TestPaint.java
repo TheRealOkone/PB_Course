@@ -4,12 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Класс отвечающий за отрисовку картинки
+ */
+
 public class TestPaint extends JPanel {
 
     public TestPaint() {
     }
 
 
+    /**
+     * Функция обновляет картинку на экране
+     * @param g
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Gui.image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);

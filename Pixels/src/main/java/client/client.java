@@ -25,8 +25,14 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+
 public class client {
     public static PBSOAPService client;
+
+    /**
+     * main создает элемент класса Gui() и создает клиента для сервиса PBSOAPService
+     * @param args параметры командной строки
+     */
 
     public static void main(String[] args) {
 
