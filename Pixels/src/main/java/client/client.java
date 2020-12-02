@@ -1,7 +1,6 @@
 package client;
 
-import PB.clients.PBSOAPService;
-import PB.clients.PBSOAPServiceService;
+import serv.service.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +18,7 @@ import javax.swing.plaf.basic.BasicRadioButtonUI;
 import javax.swing.plaf.metal.MetalCheckBoxUI;
 import javax.swing.plaf.metal.MetalRadioButtonUI;
 import javax.swing.plaf.synth.SynthRadioButtonUI;
+import javax.xml.ws.WebServiceFeature;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -29,24 +29,22 @@ public class client {
     public static PBSOAPService client;
 
     public static void main(String[] args) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                Gui a = new Gui();
-                PBSOAPServiceService ser = new PBSOAPServiceService();
-                client = ser.getPBSOAPServicePort();
+        Gui a = new Gui();
+        PBSOAPServiceService ser = new PBSOAPServiceService();
 
-                while(true) {
-                    a.area.repaint();
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        client = ser.getPBSOAPServicePort();
+
+
+        while(true) {
+            a.area.repaint();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }).start();
+        }
+
     }
 }
 

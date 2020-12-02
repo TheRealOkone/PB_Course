@@ -30,7 +30,7 @@
                             <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>http://localhost/PB/PBService?wsdl</wsdl>
+                                    <wsdl>http://localhost:8888/PB/PBService?wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
