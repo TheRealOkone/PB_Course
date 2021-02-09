@@ -24,13 +24,13 @@ public class DataBase implements Closeable {
             Connection connection = DriverManager.getConnection(DB_URL, user, password);
             System.out.println("Соединение с БД выполнено.");
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select str from testcol");
+            ResultSet rs = st.executeQuery("select color from colors");
             String s = "0";
             s = s.replace(s, String.join("", Collections.nCopies(400, s)));
             if (!rs.next()) {
                 System.out.println("База данных пуста, первичное заполнение");
                 for (int i = 0; i < 400; i++) {
-                    st.executeUpdate("INSERT INTO public.testcol (str) VALUES ('" + s + "');");
+                    st.executeUpdate("INSERT INTO public.colors (color) VALUES ('" + s + "');");
                 }
             }
             isBase = true;
@@ -68,12 +68,12 @@ public class DataBase implements Closeable {
      */
     public byte[] getPixelMap() throws SQLException {
         byte[] result = new byte[160000];
-        ResultSet rs = connection.createStatement().executeQuery("select str from testcol order by id");
+        ResultSet rs = connection.createStatement().executeQuery("select color from colors order by id");
         int i = 0;
         int ii = 0;
         String b;
         for (i = 0 ; rs.next(); i+=400) {
-            b = rs.getString("str");
+            b = rs.getString("color");
             ii++;
             for(int j=0; j<400;j++) {
                 result[i+j] = (byte)b.charAt(j);
@@ -99,7 +99,6 @@ public class DataBase implements Closeable {
                 else
                     br += "0";
         }
-        System.out.println("UPDATE public.testcol SET str=" + br +" WHERE id=" + (ln + 1) + ";");
-        connection.createStatement().executeUpdate("UPDATE public.testcol SET str='" + br +"' WHERE id=" + (ln + 1) + ";");
+        connection.createStatement().executeUpdate("UPDATE public.colors SET color='" + br +"' WHERE id=" + (ln + 1) + ";");
     }
 }
