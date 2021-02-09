@@ -2,11 +2,12 @@ package serv.dbase;
 
 import java.io.Closeable;
 import java.sql.*;
+import java.util.Collections;
 
 public class DataBase implements Closeable {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/canvas";
-    private static final String user = "root";
-    private static final String password = "123456";
+    private static final String DB_URL = "jdbc:postgresql://10.10.10.142:5432/backtosch";
+    private static final String user = "ostrankovkd";
+    private static final String password = "Tjed_913";
     private static boolean isBase;
     private final Connection connection;
 
@@ -18,17 +19,18 @@ public class DataBase implements Closeable {
     public static DataBase createConnection() throws SQLException {
         if (!isBase) {
             //Проверяем наличие JDBC драйвера для работы с БД
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            DriverManager.registerDriver(new org.postgresql.Driver());
             //Попытка установить соединение с базой данных
             Connection connection = DriverManager.getConnection(DB_URL, user, password);
             System.out.println("Соединение с БД выполнено.");
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select color from colors");
+            ResultSet rs = st.executeQuery("select str from testcol");
+            String s = "0";
+            s = s.replace(s, String.join("", Collections.nCopies(400, s)));
             if (!rs.next()) {
                 System.out.println("База данных пуста, первичное заполнение");
-                for (int i = 0; i < 160000; i++) {
-                    System.out.println("id: " + i);
-                    st.executeUpdate("INSERT INTO colors (color) \n" + " VALUES (0);");
+                for (int i = 0; i < 400; i++) {
+                    st.executeUpdate("INSERT INTO public.testcol (str) VALUES ('" + s + "');");
                 }
             }
             isBase = true;
@@ -66,10 +68,16 @@ public class DataBase implements Closeable {
      */
     public byte[] getPixelMap() throws SQLException {
         byte[] result = new byte[160000];
-        ResultSet rs = connection.createStatement().executeQuery("select color from colors");
+        ResultSet rs = connection.createStatement().executeQuery("select str from testcol order by id");
         int i = 0;
-        for (; rs.next(); i++) {
-            result[i] = rs.getByte(1);
+        int ii = 0;
+        String b;
+        for (i = 0 ; rs.next(); i+=400) {
+            b = rs.getString("str");
+            ii++;
+            for(int j=0; j<400;j++) {
+                result[i+j] = (byte)b.charAt(j);
+            }
         }
         System.out.println("Кол-во элементов: " + i);
         return result;
@@ -82,6 +90,16 @@ public class DataBase implements Closeable {
      * @throws SQLException Бросает исключение, если нет подключения
      */
     public void insertPixel(byte color, int pos) throws SQLException {
-        connection.createStatement().executeUpdate("UPDATE colors SET color=" + color +" WHERE id=" + (pos + 1) + ";");
+        int ost = pos % 400;
+        int ln = pos / 400;
+        String br = "";
+        for(int i =0;i<400;i++){
+            if(i==ost)
+                br += (char)color;
+                else
+                    br += "0";
+        }
+        System.out.println("UPDATE public.testcol SET str=" + br +" WHERE id=" + (ln + 1) + ";");
+        connection.createStatement().executeUpdate("UPDATE public.testcol SET str='" + br +"' WHERE id=" + (ln + 1) + ";");
     }
 }
