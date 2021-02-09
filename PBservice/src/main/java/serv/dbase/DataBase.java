@@ -93,12 +93,12 @@ public class DataBase implements Closeable {
         int ost = pos % 400;
         int ln = pos / 400;
         String br = "";
-        for(int i =0;i<400;i++){
-            if(i==ost)
-                br += (char)color;
-                else
-                    br += "0";
-        }
-        connection.createStatement().executeUpdate("UPDATE public.colors SET color='" + br +"' WHERE id=" + (ln + 1) + ";");
+        Statement sta = connection.createStatement();
+        ResultSet res = sta.executeQuery("select color from public.colors where id = " + (ln+1));
+        if(res.next())
+        br = res.getString("color");
+        StringBuilder strb = new StringBuilder(br);
+        strb.setCharAt(ost, (char)color);
+        connection.createStatement().executeUpdate("UPDATE public.colors SET color='" + strb +"' WHERE id=" + (ln + 1) + ";");
     }
 }
