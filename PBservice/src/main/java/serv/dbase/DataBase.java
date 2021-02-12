@@ -98,7 +98,38 @@ public class DataBase implements Closeable {
         if(res.next())
         br = res.getString("color");
         StringBuilder strb = new StringBuilder(br);
+        //System.out.println(conv(strb.toString()));
         strb.setCharAt(ost, (char)color);
         connection.createStatement().executeUpdate("UPDATE public.colors SET color='" + strb +"' WHERE id=" + (ln + 1) + ";");
     }
+/*    public String conv(String c){
+        char[] br = c.toCharArray();
+        for(int i=0;i< br.length;i++){
+            br[i] = (char) (br[i]+ 17);
+        }
+        System.out.println(br);
+        String ret = "*";
+        for(int i=0;i< br.length;i++){
+            if(br[i] != ret.charAt(ret.length()-1)){
+                ret += "1" + br[i];
+            }else{
+                char aa = ret.charAt(ret.length()-1);
+                String bruh = "";
+                ret = ret.substring(0, ret.length() - 1);
+                while(!Character.isLetter(ret.charAt(ret.length()-1)) && ret.charAt(ret.length()-1) != '*'){
+                    bruh = ret.charAt(ret.length()-1) + bruh;
+                    ret = ret.substring(0, ret.length() - 1);
+                }
+                int aaa = Integer.parseInt(bruh);
+                aaa=aaa+1;
+                System.out.println(aa);
+                ret += aaa + aa;
+            }
+            System.out.println(ret);
+        }
+        return ret;
+    }
+    public String unconv(){
+        return null;
+    }*/
 }
